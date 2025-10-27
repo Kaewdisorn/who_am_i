@@ -1,5 +1,5 @@
-import 'package:backend/backend.dart' as backend;
+import 'package:backend/server.dart' as server;
 
 void main(List<String> arguments) {
-  print('Hello world: ${backend.calculate()}!');
+  server.startServer();
 }
