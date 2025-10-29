@@ -1,13 +1,10 @@
 import 'dart:io';
 
 import 'package:backend/api_router.dart';
-import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 
 void main(List<String> arguments) async {
-  final apiRouter = ApiRouter().router;
-
-  final handler = Pipeline().addMiddleware(logRequests()).addHandler(apiRouter);
+  final handler = ApiRouter(flutterWebBuildPath: 'web').router;
 
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
 
