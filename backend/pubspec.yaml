@@ -1,5 +1,5 @@
 name: backend
-description: A sample command-line application.
+description: Personal portfolio web app built with Dart Shelf and Flutter Web
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
 
