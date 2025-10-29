@@ -9,41 +9,65 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int _selectedLang = 0; // 0: EN, 1: TH, 2: KR
+  int _selectedLang = 0; // 0: EN, 1: KR
   final List<String> _flags = ['🇺🇸', '🇰🇷'];
   final List<String> _langs = ['EN', 'KR'];
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isMobile = MediaQuery.of(context).size.width < 600;
+    final width = MediaQuery.of(context).size.width;
+
+    // Responsive font size (clamped to smaller range)
+    double logoFontSize = (width * 0.045).clamp(24.0, 36.0);
+
+    // Responsive toggle size (smaller)
+    double toggleWidth = (width * 0.04).clamp(36.0, 50.0);
+    double toggleHeight = (width * 0.035).clamp(32.0, 44.0);
+
+    // Mobile breakpoint
+    final isMobile = width < 600;
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 40, vertical: isMobile ? 12 : 16),
       color: colorScheme.primary,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Left (empty)
-          const SizedBox(width: 50),
-
-          // Center logo placeholder
-          Text(
-            '🌐',
-            style: TextStyle(fontSize: isMobile ? 28 : 36, color: colorScheme.primary),
+          // Center: logo, flexible
+          Expanded(
+            child: Text(
+              'Who am I — by Nane',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(
+                fontSize: logoFontSize,
+                fontWeight: FontWeight.bold,
+                color: colorScheme.primaryFixedDim,
+                letterSpacing: 1.5,
+                shadows: [
+                  Shadow(offset: Offset(2, 2), blurRadius: 4, color: Colors.black26),
+                  Shadow(offset: Offset(-1, -1), blurRadius: 2, color: Colors.black12),
+                ],
+                fontStyle: FontStyle.italic,
+              ),
+            ),
           ),
 
-          // Right: Flag toggle
+          // Spacer before right
+          const SizedBox(width: 8),
+
+          // Right: language toggle
           ToggleSwitch(
-            minWidth: isMobile ? 40 : 50,
-            minHeight: isMobile ? 36 : 40,
+            minWidth: toggleWidth,
+            minHeight: toggleHeight,
             cornerRadius: 20,
             activeBgColor: [colorScheme.primary.withValues(alpha: 0.25)],
             activeFgColor: colorScheme.onPrimaryContainer,
             inactiveBgColor: colorScheme.primaryFixedDim,
             inactiveFgColor: colorScheme.primary,
             initialLabelIndex: _selectedLang,
-            totalSwitches: 2,
+            totalSwitches: _flags.length,
             labels: _flags,
             radiusStyle: true,
             onToggle: (index) {
