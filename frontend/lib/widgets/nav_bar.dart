@@ -9,7 +9,7 @@ class NavBar extends StatefulWidget {
 }
 
 class _NavBarState extends State<NavBar> {
-  int _selectedLang = 0; // 0: EN, 1: KR
+  int _selectedLang = 0;
   final List<String> _flags = ['🇺🇸', '🇰🇷'];
   final List<String> _langs = ['EN', 'KR'];
 
@@ -18,14 +18,10 @@ class _NavBarState extends State<NavBar> {
     final colorScheme = Theme.of(context).colorScheme;
     final width = MediaQuery.of(context).size.width;
 
-    // Responsive font size (clamped to smaller range)
     double logoFontSize = (width * 0.045).clamp(24.0, 36.0);
-
-    // Responsive toggle size (smaller)
     double toggleWidth = (width * 0.04).clamp(36.0, 50.0);
     double toggleHeight = (width * 0.035).clamp(32.0, 44.0);
 
-    // Mobile breakpoint
     final isMobile = width < 600;
 
     return Container(
@@ -33,7 +29,6 @@ class _NavBarState extends State<NavBar> {
       color: colorScheme.primary,
       child: Row(
         children: [
-          // Center: logo, flexible
           Expanded(
             child: Text(
               'Who am I — by Nane',
@@ -54,10 +49,8 @@ class _NavBarState extends State<NavBar> {
             ),
           ),
 
-          // Spacer before right
           const SizedBox(width: 8),
 
-          // Right: language toggle
           ToggleSwitch(
             minWidth: toggleWidth,
             minHeight: toggleHeight,
